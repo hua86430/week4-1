@@ -1,11 +1,13 @@
 import pagination from './pagination.js';
 import productModal from './productModal.js';
+import delProductModal from './delModal.js';
 let myProductModal = {};
 let myDeleteModal = {};
 const app = Vue.createApp({
   components: {
     pagination,
-    productModal
+    productModal,
+    delProductModal
   },
   data () {
     return {
@@ -115,46 +117,4 @@ const app = Vue.createApp({
     myProductModal = new bootstrap.Modal(document.querySelector('#productModal'));
     myDeleteModal = new bootstrap.Modal(document.querySelector('#delProductModal'));
   }
-})
-  .component('delProduct', {
-    props: ['item'],
-    template: `<div
-  id="delProductModal"
-  ref="delProductModal"
-  class="modal fade"
-  tabindex="-1"
-  aria-labelledby="delProductModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-      <div class="modal-content border-0">
-          <div class="modal-header bg-danger text-white">
-              <h5 id="delProductModalLabel" class="modal-title">
-                  <span>刪除產品</span>
-              </h5>
-              <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-              ></button>
-          </div>
-          <div class="modal-body">
-              是否刪除
-              <strong class="text-danger"></strong>
-              商品(刪除後將無法恢復)。
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                  取消
-              </button>
-              <button @click="$emit('edit-product',item)" type="button" class="btn btn-danger">
-                  確認刪除
-              </button>
-          </div>
-      </div>
-  </div>
-</div>`
-  })
-
-  .mount("#app");
+}).mount("#app");
