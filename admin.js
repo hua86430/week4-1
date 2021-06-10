@@ -11,7 +11,8 @@ const app = Vue.createApp({
     return {
       url: 'https://vue3-course-api.hexschool.io/',
       path: "hua430",
-      productData: [],
+      productData: [
+      ],
       modelObj: {
         modelStatus: ""
       },
@@ -46,13 +47,16 @@ const app = Vue.createApp({
       else if (status == 'edit') {
         myProductModal.show();
         this.productObj = {
+          imagesUrl: [],
           ...item
         };
+        console.log(this.productObj);
         this.modelObj.modelStatus = "編輯";
       }
       else if (status == 'delete') {
         myDeleteModal.show();
         this.productObj = {
+          imagesUrl: [],
           ...item
         };
         this.modelObj.modelStatus = "刪除";
@@ -144,7 +148,7 @@ const app = Vue.createApp({
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                   取消
               </button>
-              <button @click="$emit('edit-product',productObj)" type="button" class="btn btn-danger">
+              <button @click="$emit('edit-product',item)" type="button" class="btn btn-danger">
                   確認刪除
               </button>
           </div>
