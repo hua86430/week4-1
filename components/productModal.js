@@ -45,7 +45,7 @@ export default
                           <div class="m-2 d-block text-center">或</div>
                           <label class="d-block btn btn-primary text-black mb-4">
                   <input style="display:none" @change="upload('main',$event)" type="file" class="form-control" id="file" placeholder="新增圖片">
-                  <span class="material-icons text-base align-text-bottom">
+                  <span class="material-icons text-base">
                   file_upload
                   </span>
                   <div class="text-center">新增主要圖片</div>
