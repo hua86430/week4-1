@@ -48,7 +48,7 @@ export default
                   <span class="material-icons text-base align-text-bottom">
                   file_upload
                   </span>
-                  <div class="text-center">新增圖片</div>
+                  <div class="text-center">新增主要圖片</div>
                           </label>
                           <img class="img-fluid" :src="productObj.imageUrl" alt="">
                       </div>
