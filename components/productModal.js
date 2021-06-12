@@ -1,6 +1,14 @@
-export default {
-  props: ['productObj'],
-  template: `<div
+export default
+  {
+    props: ['productObj', 'url', 'path'],
+    data () {
+      return {
+        imageFileUrl: "",
+        innerUrl: '',
+        innerPath: "",
+      };
+    },
+    template: `<div
   id="productModal"
   ref="productModal"
   class="modal fade"
@@ -34,8 +42,19 @@ export default {
                                   v-model="productObj.imageUrl"
                               >
                           </div>
+                          <div class="m-2 d-block text-center">或</div>
+                          <label class="d-block btn btn-primary text-black mb-4">
+                  <input style="display:none" @change="upload('main',$event)" type="file" class="form-control" id="file" placeholder="新增圖片">
+                  <span class="material-icons text-base align-text-bottom">
+                  file_upload
+                  </span>
+                  <div class="text-center">新增圖片</div>
+                          </label>
                           <img class="img-fluid" :src="productObj.imageUrl" alt="">
                       </div>
+
+
+                      <!--多圖新增 -->
                       <div class="text-secondary mb-2">多圖新增</div>
                       <div v-for="(item, index) in productObj.imagesUrl" :key="index">
                           <input
@@ -44,6 +63,7 @@ export default {
                               placeholder="請輸入圖片連結"
                               v-model="productObj.imagesUrl[index]"
                           >
+                          
                           <img class="img-fluid mb-2" :src="productObj.imagesUrl[index]">
                       </div>
                       <div v-if="!productObj.imagesUrl.length || productObj.imagesUrl[productObj.imagesUrl.length-1]">
@@ -162,16 +182,33 @@ export default {
       </div>
   </div>
 </div>`,
-  methods: {
-    addImage () {
-      if (this.productObj.imagesUrl == "") {
-        this.productObj.imagesUrl = [];
+    methods: {
+      upload (key, e) {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('file-to-upload', file);
+        axios.post(`${this.innerUrl}api/${this.innerPath}/admin/upload`, formData)
+          .then((res) => {
+            this.productObj.imageUrl = res.data.imageUrl;
+            console.log(res);
+          })
+          .catch((res) => {
+            console.log(res);
+          });
+      },
+      addImage () {
+        if (this.productObj.imagesUrl == "") {
+          this.productObj.imagesUrl = [];
+        }
+        if (this.productObj.imagesUrl[this.productObj.imagesUrl.length - 1] !== "")
+          this.productObj.imagesUrl.push("");
+      },
+      delImage () {
+        this.productObj.imagesUrl.splice(this.productObj.imagesUrl.length - 1, 1);
       }
-      if (this.productObj.imagesUrl[this.productObj.imagesUrl.length - 1] !== "")
-        this.productObj.imagesUrl.push("");
     },
-    delImage () {
-      this.productObj.imagesUrl.splice(this.productObj.imagesUrl.length - 1, 1);
+    created () {
+      this.innerUrl = this.url;
+      this.innerPath = this.path;
     }
   }
-}

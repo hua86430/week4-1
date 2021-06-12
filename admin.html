@@ -11,6 +11,8 @@
             integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
             crossorigin="anonymous"
         >
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     </head>
     <body>
         <div id="app">
@@ -70,7 +72,7 @@
               @page-change="getData"></pagination>
             </div>
             <!-- Modal -->
-            <product-modal :product-obj="productObj" @edit-product="editProduct"></product-modal>
+            <product-modal :url="url" :path="path" :product-obj="productObj" @edit-product="editProduct"></product-modal>
             <del-product-modal :item="productObj" @edit-product="editProduct"></del-product-modal>
             <!-- Modal -->
         </div>
